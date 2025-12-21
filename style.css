@@ -1,0 +1,446 @@
+:root {
+    --bg: #0a0a0a;
+    --card-bg: #111;
+    --text: #ffffff;
+    --accent: #2962ff; /* Royal Blue */
+    --error: #ff3333;  /* Red */
+    --border: #333;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Space Mono', monospace;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, .logo, .tier-name, button {
+    font-family: 'Black Ops One', cursive;
+    text-transform: uppercase;
+}
+
+/* --- Navigation --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 3rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.logo { font-size: 2rem; letter-spacing: 2px; }
+.accent { color: var(--accent); }
+
+.nav-links { list-style: none; display: flex; gap: 2rem; }
+.nav-links a {
+    text-decoration: none;
+    color: var(--text);
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+/* --- Marquee --- */
+.marquee {
+    background: var(--accent);
+    color: #fff;
+    padding: 0.5rem 0;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.track {
+    display: inline-block;
+    animation: scroll 15s linear infinite;
+    font-weight: bold;
+}
+@keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* --- Hero & Layouts --- */
+.hero {
+    text-align: center;
+    padding: 4rem 1rem;
+    border-bottom: 1px solid var(--border);
+}
+.hero h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 1rem; }
+.hero .subtitle { color: var(--accent); letter-spacing: 2px; }
+
+.container { padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; }
+
+/* --- Split Section (Manifesto) --- */
+.split-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 4rem;
+    align-items: center;
+}
+.image-box img { width: 100%; filter: grayscale(100%); border: 1px solid var(--border); }
+.text-box h2 { font-size: 2.5rem; margin-bottom: 1.5rem; }
+.text-box p { margin-bottom: 1rem; color: #ccc; line-height: 1.6; }
+
+/* --- Stats Grid --- */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--border);
+    margin-bottom: 4rem;
+}
+.stat-card {
+    padding: 2rem;
+    text-align: center;
+    border-right: 1px solid var(--border);
+}
+.stat-card:last-child { border-right: none; }
+.stat-card h3 { font-size: 3rem; margin-bottom: 0.5rem; }
+.stat-card.accent-text h3, .stat-card.accent-text p { color: var(--accent); }
+
+/* --- Team Section --- */
+.section-title { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
+.line { flex: 1; height: 1px; background: var(--border); }
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+.member-card { border: 1px solid var(--border); transition: transform 0.3s; }
+.member-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+.member-card img { width: 100%; height: 300px; object-fit: cover; filter: grayscale(100%); }
+.info { padding: 1.5rem; background: var(--card-bg); text-align: center; }
+.info h3 { margin-bottom: 0.5rem; color: var(--text); }
+.info p { color: var(--accent); font-size: 0.9rem; }
+
+/* --- FORM STYLING --- */
+.form-container {
+    display: flex;
+    justify-content: center;
+    padding: 4rem 1rem;
+}
+.form-wrapper {
+    width: 100%;
+    max-width: 600px;
+    background: var(--card-bg);
+    padding: 3rem;
+    border: 1px solid var(--border);
+}
+.form-header { text-align: center; margin-bottom: 3rem; }
+.form-header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+.form-header p { color: #888; letter-spacing: 1px; }
+
+.form-group { margin-bottom: 1.5rem; position: relative; }
+
+/* Labels (Name, Email, Phone) */
+.form-group label { 
+    display: block; 
+    margin-bottom: 0.5rem; 
+    color: var(--accent); /* Royal Blue */
+    font-size: 0.9rem; 
+    font-weight: bold; 
+    letter-spacing: 1px;
+}
+
+.form-group input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid var(--border);
+    padding: 0.8rem 0;
+    color: #fff;
+    font-family: 'Space Mono', monospace;
+    font-size: 1.1rem;
+    outline: none;
+}
+.form-group input:focus { border-bottom-color: var(--accent); }
+
+/* Validation States */
+.form-group.success input { border-bottom-color: var(--accent); }
+.form-group.error input { border-bottom-color: var(--error); color: var(--error); }
+.form-group small.error-msg {
+    color: var(--error);
+    font-size: 0.7rem;
+    display: none;
+    margin-top: 5px;
+}
+.form-group.error small.error-msg { display: block; }
+
+/* Tier Selection */
+.tier-section { margin-top: 2rem; }
+
+/* UPDATED: Specific selector ensures only the HEADER label is blue */
+.tier-section > label { 
+    color: var(--accent); 
+    font-weight: bold; 
+    letter-spacing: 1px; 
+} 
+
+.tier-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+.tier-card input { display: none; }
+
+.tier-card {
+    border: 1px solid var(--border);
+    padding: 1rem;
+    cursor: pointer;
+    text-align: center;
+    transition: 0.3s;
+    color: #fff; /* UPDATED: Forces card text to be White */
+}
+
+.tier-card:hover { border-color: #fff; }
+
+.tier-card:has(input:checked) {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+
+.tier-name { display: block; font-size: 1.2rem; }
+.tier-price { font-size: 0.9rem; font-weight: bold; }
+
+/* Submit Button */
+button[type="submit"] {
+    width: 100%;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    background: transparent;
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+button[type="submit"]:hover {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 0 15px var(--accent);
+}
+
+/* Footer */
+footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border); margin-top: 4rem; color: #666; }
+
+/* Mobile */
+@media(max-width: 768px) {
+    .split-section, .stats-grid, .tier-grid { grid-template-columns: 1fr; }
+    .stat-card { border-right: none; border-bottom: 1px solid var(--border); }
+    .hero h1 { font-size: 2.5rem; }
+}
+
+
+/* --- CREATIVITY PAGE STYLES --- */
+
+.ops-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.ops-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2rem;
+}
+
+.ops-header h1 { font-size: 3.5rem; color: #fff; margin-bottom: 0.5rem; }
+.ops-header p { color: var(--accent); letter-spacing: 2px; }
+
+/* --- GAME SECTION --- */
+.game-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 6rem;
+    align-items: center;
+}
+
+.game-info h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+.game-info p { color: #888; margin-bottom: 2rem; }
+
+.score-board {
+    display: flex;
+    gap: 2rem;
+    font-size: 1.5rem;
+    font-family: 'Black Ops One', cursive;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border);
+    padding: 1rem;
+    background: var(--card-bg);
+}
+
+.score-board b { color: var(--accent); }
+
+#start-game-btn, #generate-btn {
+    padding: 1rem 2rem;
+    background: transparent;
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    font-family: 'Black Ops One', cursive;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#start-game-btn:hover, #generate-btn:hover {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 0 20px var(--accent);
+}
+
+/* The Game Grid */
+.grid-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 300px;
+    height: 300px;
+}
+
+.square {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+.square:hover { border-color: #fff; }
+
+/* Active Target (The "Mole") */
+.square.target {
+    background: var(--accent);
+    box-shadow: 0 0 15px var(--accent);
+    border-color: #fff;
+}
+
+/* --- GENERATOR SECTION --- */
+.generator-section { text-align: center; }
+.generator-section h2 { margin-bottom: 2rem; font-size: 2.5rem; }
+
+.terminal-window {
+    background: #000;
+    border: 1px solid var(--border);
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+    text-align: left;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.terminal-header {
+    background: #1a1a1a;
+    padding: 10px;
+    display: flex;
+    gap: 8px;
+    border-bottom: 1px solid var(--border);
+}
+
+.dot { width: 12px; height: 12px; border-radius: 50%; display: block; }
+.red { background: #ff5f56; }
+.yellow { background: #ffbd2e; }
+.green { background: #27c93f; }
+
+.terminal-body {
+    padding: 2rem;
+    min-height: 200px;
+    font-family: 'Space Mono', monospace;
+}
+
+.console-text { color: #666; margin-bottom: 5px; }
+
+#workout-display {
+    color: var(--accent);
+    font-size: 1.2rem;
+    margin-top: 1.5rem;
+    line-height: 1.6;
+    font-weight: bold;
+    min-height: 100px;
+    white-space: pre-line; /* Keeps line breaks */
+}
+
+/* Mobile */
+@media(max-width: 768px) {
+    .game-section { grid-template-columns: 1fr; text-align: center; }
+    .score-board { justify-content: center; }
+    .ops-header h1 { font-size: 2.5rem; }
+}
+
+/* --- DIFFICULTY CONTROLS --- */
+.difficulty-box {
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.difficulty-box span {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #888;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.diff-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.diff-btn {
+    flex: 1;
+    padding: 0.5rem;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: #666;
+    font-family: 'Space Mono', monospace;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.diff-btn:hover {
+    border-color: #fff;
+    color: #fff;
+}
+
+/* Active State (Selected Difficulty) */
+.diff-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+    box-shadow: 0 0 10px rgba(41, 98, 255, 0.3);
+}
+
+.ops-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+/* ... existing game styles ... */
+
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Default 3 columns */
+    gap: 10px;
+    width: 100%;
+    max-width: 450px; /* Increased slightly to fit 5 cols */
+    margin: 0 auto;   /* Center it */
+}
+
+/* NEW: Hard Mode Grid (5 Columns) */
+.game-grid.hard-grid {
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.square {
+    aspect-ratio: 1 / 1; /* Ensures squares stay square */
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+/* ... existing hover/target styles ... */

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ops // HAVOC STRENGTH</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">HAVOC<span class="accent">.</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">INTEL</a></li>
+            <li><a href="join.html" class="active">ENLIST</a></li>
+            <li><a href="creativity.html">MISSIONS</a></li>
+        </ul>
+    </nav>
+
+    <main class="ops-container">
+        
+        <header class="ops-header">
+            <h1>FIELD OPERATIONS</h1>
+            <p>TACTICAL DRILLS & DAILY PROTOCOLS</p>
+        </header>
+
+        <section class="game-section">
+            <div class="game-info">
+                <h2>REFLEX DRILL</h2>
+                <p>TARGET ACQUISITION SPEED TEST. HIT THE BLUE ZONES.</p>
+                
+                <div class="score-board">
+                    <span>SCORE: <b id="score">0</b></span>
+                    <span>TIME: <b id="time-left">30</b>s</span>
+                </div>
+
+                <div class="difficulty-box">
+                    <span>DIFFICULTY:</span>
+                    <div class="diff-buttons">
+                        <button class="diff-btn active" data-speed="1000">EASY</button>
+                        <button class="diff-btn" data-speed="600">MED</button>
+                        <button class="diff-btn" data-speed="400">HARD</button>
+                    </div>
+                </div>
+
+                <button id="start-game-btn">INITIATE SEQUENCE</button>
+            </div>
+            
+            <div class="grid-wrapper">
+                <div class="game-grid" id="grid">
+                    </div>
+            </div>
+        </section>
+
+        <section class="generator-section">
+            <h2>MISSION DECRYPTOR</h2>
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-body">
+                    <p class="console-text">> SYSTEM READY...</p>
+                    <p class="console-text">> AWAITING INPUT...</p>
+                    <div id="workout-display">
+                        </div>
+                </div>
+            </div>
+            <button id="generate-btn">DECRYPT NEW MISSION</button>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
