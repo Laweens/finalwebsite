@@ -385,3 +385,41 @@ footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border);
     .score-board { justify-content: center; }
     .ops-header h1 { font-size: 2.5rem; }
 }
+
+ /* Row layout for Age/Weight/Height */
+        .biometrics-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .biometrics-row .form-group {
+            flex: 1; /* Equal width */
+            margin-bottom: 0;
+        }
+        
+        /* Textarea styling */
+        textarea {
+            width: 100%;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #000;
+            font-family: 'Space Mono', monospace;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+
+        /* Error Message Styling */
+        .error-msg { 
+            display: none; 
+            color: #ff3333; /* Red error text */
+            font-size: 0.75rem; 
+            font-weight: bold; 
+            margin-top: 5px;
+            letter-spacing: 1px;
+        }
+        
+        /* Error Input Border */
+        .input-error { 
+            border: 2px solid #ff3333 !important; 
+            background-color: rgba(255, 0, 0, 0.05);
+        }
