@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    /* 1. GLOBAL: NUMBER COUNTER (About Page)*/
+    /* =========================================
+       1. GLOBAL: NUMBER COUNTER (About Page)
+       ========================================= */
     const counters = document.querySelectorAll('.counter');
     if (counters.length > 0) {
         counters.forEach(counter => {
@@ -21,7 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /*2. GLOBAL: FORM VALIDATION (Join Page) */
+    /* =========================================
+       2. GLOBAL: FORM VALIDATION (Join Page)
+       ========================================= */
     const form = document.getElementById('enlistForm');
     if (form) {
         form.addEventListener('submit', (e) => {
@@ -69,8 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1500);
     }
 
-    /*  3. OPS PAGE: REFLEX GAME (DYNAMIC GRID) */
-    /* game no longer repeats squares */
+    /* REFLEX GAME */
     const grid = document.querySelector('.game-grid');
     const scoreDisplay = document.querySelector('#score');
     const timeDisplay = document.querySelector('#time-left');
@@ -84,12 +87,18 @@ document.addEventListener('DOMContentLoaded', () => {
     let moleTimerId = null;
     let hitPosition = null;
     let moveSpeed = 1000; 
-    
-    // NEW: Variable to track the previous spot
     let lastPosition = -1; 
 
+    // Poem words
+    const poemWords = [
+        "no", "rest", "for", "the", "greatest",
+        "you", "have", "taken", "another", "step",
+        "be", "proud", "of", "your", "achievements",
+        "Look", "how", "far", "you've", "come"
+    ];
+    let wordIndex = 0;
+
     if (grid) {
-        // Initial Grid (Easy/Default)
         createBoard(9);
 
         // --- Difficulty Logic ---
@@ -101,9 +110,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 moveSpeed = parseInt(btn.getAttribute('data-speed'));
 
                 if (moveSpeed === 400) {
-                    createBoard(20); // 5x4 Grid
+                    createBoard(20); // Hard
                 } else {
-                    createBoard(9);  // 3x3 Grid
+                    createBoard(9);  // Easy/Med
                 }
             });
         });
@@ -115,10 +124,17 @@ document.addEventListener('DOMContentLoaded', () => {
             
             score = 0;
             currentTime = 30;
-            lastPosition = -1; // Reset tracking
+            lastPosition = -1;
+            wordIndex = 0;
             scoreDisplay.textContent = 0;
             timeDisplay.textContent = 30;
             
+            // Clean grid before starting
+            squares.forEach(sq => {
+                sq.classList.remove('target');
+                sq.innerText = "";
+            });
+
             moleTimerId = setInterval(randomSquare, moveSpeed);
             timerId = setInterval(countDown, 1000);
             
@@ -152,6 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     scoreDisplay.textContent = score;
                     hitPosition = null;
                     square.classList.remove('target');
+                    square.innerText = ""; 
                     square.style.backgroundColor = '#fff';
                     setTimeout(()=> square.style.backgroundColor = '', 100);
                 }
@@ -159,13 +176,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- UPDATED: Random Square Logic ---
+    // --- Random Square Logic ---
     function randomSquare() {
-        squares.forEach(sq => sq.classList.remove('target'));
+        // Clear previous
+        squares.forEach(sq => {
+            sq.classList.remove('target');
+            sq.innerText = ""; 
+        });
         
         let newIndex;
-        
-        // Loop: Pick a random number UNTIL it is different from the last one
         do {
             newIndex = Math.floor(Math.random() * squares.length);
         } while (newIndex === lastPosition);
@@ -173,8 +192,14 @@ document.addEventListener('DOMContentLoaded', () => {
         let randomSquare = squares[newIndex];
         randomSquare.classList.add('target');
         
+        // Safety Check: Only show text if we are in Hard Mode (20 squares)
+        if (moveSpeed === 400 && squares.length === 20) {
+            randomSquare.innerText = poemWords[wordIndex];
+            wordIndex = (wordIndex + 1) % poemWords.length;
+        }
+
         hitPosition = randomSquare.id;
-        lastPosition = newIndex; // Save this position for next time
+        lastPosition = newIndex; 
     }
 
     function countDown() {
@@ -183,6 +208,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentTime == 0) {
             clearInterval(timerId);
             clearInterval(moleTimerId);
+            
+            squares.forEach(sq => sq.innerText = "");
+            
             alert('DRILL COMPLETE. FINAL SCORE: ' + score);
             
             startBtn.innerText = "INITIATE SEQUENCE";
@@ -190,64 +218,6 @@ document.addEventListener('DOMContentLoaded', () => {
             diffBtns.forEach(btn => btn.style.pointerEvents = 'auto');
         }
     }
-
-    // --- Helper: Build the Grid ---
-    function createBoard(numSquares) {
-        // Clear old grid
-        grid.innerHTML = '';
-        squares = [];
-        
-        // Toggle CSS class for 5x4 layout
-        if (numSquares === 20) {
-            grid.classList.add('hard-grid');
-        } else {
-            grid.classList.remove('hard-grid');
-        }
-
-        // Generate Squares
-        for (let i = 0; i < numSquares; i++) {
-            const square = document.createElement('div');
-            square.classList.add('square');
-            square.setAttribute('id', i);
-            grid.appendChild(square);
-            squares.push(square);
-
-            // Hit Listener
-            square.addEventListener('mousedown', () => {
-                if (square.id == hitPosition) {
-                    score++;
-                    scoreDisplay.textContent = score;
-                    hitPosition = null;
-                    square.classList.remove('target');
-                    square.style.backgroundColor = '#fff';
-                    setTimeout(()=> square.style.backgroundColor = '', 100);
-                }
-            });
-        }
-    }
-
-    function randomSquare() {
-        squares.forEach(sq => sq.classList.remove('target'));
-        // Dynamic random based on current array length (9 or 20)
-        let randomSquare = squares[Math.floor(Math.random() * squares.length)];
-        randomSquare.classList.add('target');
-        hitPosition = randomSquare.id;
-    }
-
-    function countDown() {
-        currentTime--;
-        timeDisplay.textContent = currentTime;
-        if (currentTime == 0) {
-            clearInterval(timerId);
-            clearInterval(moleTimerId);
-            alert('DRILL COMPLETE. FINAL SCORE: ' + score);
-            
-            startBtn.innerText = "INITIATE SEQUENCE";
-            startBtn.disabled = false;
-            diffBtns.forEach(btn => btn.style.pointerEvents = 'auto');
-        }
-    }
-
     /* =========================================
        4. OPS PAGE: WORKOUT DECRYPTOR
        ========================================= */
