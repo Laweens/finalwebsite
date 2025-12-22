@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    /* =========================================
+    /*        
        1. GLOBAL: NUMBER COUNTER (About Page)
-       ========================================= */
+               */
     const counters = document.querySelectorAll('.counter');
     if (counters.length > 0) {
         counters.forEach(counter => {
@@ -23,9 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /* =========================================
+    /*        
        2. GLOBAL: FORM VALIDATION (Join Page)
-       ========================================= */
+               */
     const form = document.getElementById('enlistForm');
     if (form) {
         form.addEventListener('submit', (e) => {
@@ -130,9 +130,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1500);
     }
 
-    /* =========================================
+    /*        
        3. REFLEX GAME
-       ========================================= */
+               */
     const grid = document.querySelector('.game-grid');
     const scoreDisplay = document.querySelector('#score');
     const timeDisplay = document.querySelector('#time-left');
@@ -278,9 +278,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    /* =========================================
+    /*        
        4. OPS PAGE: WORKOUT DECRYPTOR
-       ========================================= */
+               */
     const generateBtn = document.getElementById('generate-btn');
     const workoutDisplay = document.getElementById('workout-display');
     
