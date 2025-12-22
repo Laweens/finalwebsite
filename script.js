@@ -30,50 +30,109 @@ document.addEventListener('DOMContentLoaded', () => {
     if (form) {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
+            
+            // Get Elements
             const fullname = document.getElementById('fullname');
             const email = document.getElementById('email');
             const phone = document.getElementById('phone');
+            const age = document.getElementById('age');
+            const weight = document.getElementById('weight');
+            const height = document.getElementById('height');
+            const goals = document.getElementById('goals');
 
-            const isNameValid = checkInput(fullname, /^.{2,}$/);
+            // 1. Text & Regex Validations
+            const isNameValid = checkInput(fullname, /^.{2,}$/); // Min 2 chars
             const isEmailValid = checkInput(email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/);
-            const isPhoneValid = checkInput(phone, /^\d{10}$|^\d{3}-\d{3}-\d{4}$/);
+            const isPhoneValid = checkInput(phone, /^\d{10}$|^\d{3}-\d{3}-\d{4}$/); // 10 digits
+            
+            // 2. Numeric Validations (New Helper Function)
+            const isAgeValid = checkNumber(age, 16, 120); // Min 16, Max 120
+            const isWeightValid = checkNumber(weight, 30, 500); // Min 30kg, Max 500kg
+            const isHeightValid = checkNumber(height, 100, 300); // Min 100cm, Max 300cm
 
-            if (isNameValid && isEmailValid && isPhoneValid) {
+            // 3. Goals Validation (Min 10 chars, allowing new lines)
+            const isGoalsValid = checkInput(goals, /^[\s\S]{10,}$/);
+
+            // Final Check
+            if (isNameValid && isEmailValid && isPhoneValid && 
+                isAgeValid && isWeightValid && isHeightValid && isGoalsValid) {
                 runSuccessAnimation();
+            } else {
+                // Optional: Shake animation or alert if failed
+                console.log("Validation Failed");
             }
         });
     }
 
+    // Helper: Checks Regex Matches (Text)
     function checkInput(input, regex) {
         const parent = input.parentElement;
+        // .trim() removes whitespace from start/end
         if (regex.test(input.value.trim())) {
-            parent.classList.remove('error');
+            parent.classList.remove('error'); // Relies on your CSS for styling
+            parent.classList.remove('input-error'); // Supports the HTML update styling
             parent.classList.add('success');
+            
+            // Hide error message if using the structure from HTML update
+            const errorMsg = parent.querySelector('.error-msg');
+            if(errorMsg) errorMsg.style.display = 'none';
+            
             return true;
         } else {
             parent.classList.remove('success');
             parent.classList.add('error');
+            parent.classList.add('input-error');
+            
+            // Show error message
+            const errorMsg = parent.querySelector('.error-msg');
+            if(errorMsg) errorMsg.style.display = 'block';
+            
+            return false;
+        }
+    }
+
+    // Helper: Checks Numeric Ranges (New)
+    function checkNumber(input, min, max) {
+        const parent = input.parentElement;
+        const val = parseFloat(input.value);
+        
+        if (input.value !== '' && !isNaN(val) && val >= min && val <= max) {
+            parent.classList.remove('input-error');
+            parent.classList.add('success');
+            const errorMsg = parent.querySelector('.error-msg');
+            if(errorMsg) errorMsg.style.display = 'none';
+            return true;
+        } else {
+            parent.classList.add('input-error');
+            parent.classList.remove('success');
+            const errorMsg = parent.querySelector('.error-msg');
+            if(errorMsg) errorMsg.style.display = 'block';
             return false;
         }
     }
 
     function runSuccessAnimation() {
         const btn = document.getElementById('submitBtn');
+        const originalText = btn.innerText;
+        
         btn.innerText = "VERIFYING DATA...";
         btn.style.backgroundColor = "#fff";
         btn.style.color = "#000";
+        
         setTimeout(() => {
             btn.innerText = "ACCESS GRANTED";
             btn.style.backgroundColor = "#2962ff"; 
             btn.style.color = "#fff";
             setTimeout(() => {
                 alert("WELCOME TO HAVOC STRENGTH.");
-                location.reload();
+                // location.reload(); // Uncomment to reload page
             }, 500);
         }, 1500);
     }
 
-    /* REFLEX GAME */
+    /* =========================================
+       3. REFLEX GAME
+       ========================================= */
     const grid = document.querySelector('.game-grid');
     const scoreDisplay = document.querySelector('#score');
     const timeDisplay = document.querySelector('#time-left');
@@ -218,6 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
             diffBtns.forEach(btn => btn.style.pointerEvents = 'auto');
         }
     }
+    
     /* =========================================
        4. OPS PAGE: WORKOUT DECRYPTOR
        ========================================= */

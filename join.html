@@ -6,6 +6,51 @@
     <title>Enlist // HAVOC STRENGTH</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Row layout for Age/Weight/Height */
+        .biometrics-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .biometrics-row .form-group {
+            flex: 1; /* Equal width */
+            margin-bottom: 0;
+        }
+        
+        /* Textarea styling */
+        textarea {
+            width: 100%;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #000;
+            font-family: 'Space Mono', monospace;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+
+        /* Mobile Responsive: Stack them on small screens */
+        @media (max-width: 600px) {
+            .biometrics-row { flex-direction: column; gap: 15px; }
+        }
+
+        /* Error Message Styling */
+        .error-msg { 
+            display: none; 
+            color: #ff3333; /* Red error text */
+            font-size: 0.75rem; 
+            font-weight: bold; 
+            margin-top: 5px;
+            letter-spacing: 1px;
+        }
+        
+        /* Error Input Border */
+        .input-error { 
+            border: 2px solid #ff3333 !important; 
+            background-color: rgba(255, 0, 0, 0.05);
+        }
+    </style>
 </head>
 <body>
 
@@ -26,22 +71,49 @@
             </div>
 
             <form id="enlistForm" novalidate>
+                
                 <div class="form-group">
-                    <label for="fullname">ID TAG (FULL NAME)</label>
+                    <label for="fullname">FULL NAME</label>
                     <input type="text" id="fullname" placeholder="ENTER NAME...">
                     <small class="error-msg">NAME REQUIRED</small>
                 </div>
 
                 <div class="form-group">
-                    <label for="email">COMM_LINK (EMAIL)</label>
+                    <label for="email">EMAIL</label>
                     <input type="email" id="email" placeholder="USER@DOMAIN.COM">
                     <small class="error-msg">INVALID EMAIL FORMAT</small>
                 </div>
 
                 <div class="form-group">
-                    <label for="phone">SIGNAL (PHONE)</label>
+                    <label for="phone">PHONE</label>
                     <input type="tel" id="phone" placeholder="123-456-7890">
                     <small class="error-msg">INVALID PHONE (10 DIGITS)</small>
+                </div>
+
+                <div class="biometrics-row">
+                    <div class="form-group">
+                        <label for="age">AGE</label>
+                        <input type="number" id="age" placeholder="YRS">
+                        <small class="error-msg">INVALID AGE (16+)</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="weight">WEIGHT (POUNDS)</label>
+                        <input type="number" id="weight" placeholder="KG">
+                        <small class="error-msg">WEIGHT REQUIRED</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="height">HEIGHT (INCHES)</label>
+                        <input type="number" id="height" placeholder="CM">
+                        <small class="error-msg">HEIGHT REQUIRED</small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="goals">MISSION OBJECTIVES (GOALS)</label>
+                    <textarea id="goals" rows="3" placeholder="DEFINE YOUR TARGETS..."></textarea>
+                    <small class="error-msg">BRIEFING REQUIRED (MIN 10 CHARS)</small>
                 </div>
 
                 <div class="tier-section">
@@ -51,7 +123,7 @@
                         <label class="tier-card">
                             <input type="radio" name="tier" value="grunt">
                             <div class="card-content">
-                                <span class="tier-name">GRUNT</span>
+                                <span class="tier-name">BASE</span>
                                 <span class="tier-price">$30/mo</span>
                             </div>
                         </label>
@@ -59,7 +131,7 @@
                         <label class="tier-card">
                             <input type="radio" name="tier" value="operator" checked>
                             <div class="card-content">
-                                <span class="tier-name">OPERATOR</span>
+                                <span class="tier-name">VALUE</span>
                                 <span class="tier-price">$50/mo</span>
                             </div>
                         </label>
@@ -67,7 +139,7 @@
                         <label class="tier-card">
                             <input type="radio" name="tier" value="warlord">
                             <div class="card-content">
-                                <span class="tier-name">WARLORD</span>
+                                <span class="tier-name">DELUXE</span>
                                 <span class="tier-price">$90/mo</span>
                             </div>
                         </label>
