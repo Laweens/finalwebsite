@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const btn = document.getElementById('submitBtn');
         const originalText = btn.innerText;
         
-        btn.innerText = "VERIFYING DATA...";
+        btn.innerText = "VERIFYING INFO...";
         btn.style.backgroundColor = "#fff";
         btn.style.color = "#000";
         
