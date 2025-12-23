@@ -47,8 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // 2. Numeric Validations (New Helper Function)
             const isAgeValid = checkNumber(age, 16, 120); // Min 16, Max 120
-            const isWeightValid = checkNumber(weight, 30, 500); // Min 30kg, Max 500kg
-            const isHeightValid = checkNumber(height, 100, 300); // Min 100cm, Max 300cm
+            const isWeightValid = checkNumber(weight, 30, 500);
+            const isHeightValid = checkNumber(height, 50, 200); 
 
             // 3. Goals Validation (Min 10 chars, allowing new lines)
             const isGoalsValid = checkInput(goals, /^[\s\S]{10,}$/);
